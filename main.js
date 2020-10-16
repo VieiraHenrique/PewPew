@@ -1,3 +1,5 @@
+// VARIABLES
+
 const pink = '#ff8990';
 const blue = '#484d6d';
 const yellow = '#eab464';
@@ -10,14 +12,14 @@ const scoreDisp = document.getElementById('score');
 const timeDisp = document.getElementById('time');
 const text = document.getElementById('text');
 
-
+// INFORMATIONS ABOUT CANON
 let canon = {
     x: canvas.width / 2,
     y: canvas.height - 80,
     dx: 10,
     dy: 10
 }
-
+// FUNCTION TO DRAW CANON
 function drawCanon(){
     c.beginPath();
     c.moveTo(canon.x,canon.y);
@@ -27,7 +29,7 @@ function drawCanon(){
     c.fillStyle = yellow;
     c.fill();
 }
-
+// CLASS TO CREATE PROJECTILES
 class Projectile {
     constructor(x,y,radius,color,velocity) {
         this.x = x;
@@ -49,13 +51,12 @@ class Projectile {
         this.y = this.y - this.velocity;
     }
 }
-////////////////////
-
+// FUNCTION TO GENERATE RANDOM NUMBERS
 function randInt(min, max) {
     // max included
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
-
+// CLASS TO CREATE ENNEMI
 class Ennemi {
     constructor(y) {
         this.x = randInt(20, canvas.width-20);
@@ -71,19 +72,19 @@ class Ennemi {
         c.fill();
     }
 }
-
-////////////////////
-
+// DEFINING ARRAYS FOR PROJECTILES AND ENNEMIES
 const projectiles = [];
 const ennemies = [];
 
+// PUSHING A FIRST ENNEMI INTO HIS ARRAY
 ennemies.push(new Ennemi(100));
 
+// DEFINING VARIBALES FOR SCORE AND PLAYING STATUS
 let score = 0
 let playing = false
 
+// EVENT LISTENER TO LAUNCH THE GAME
 run.addEventListener('click', ()=>{
-    console.log('clicked')
     run.setAttribute('disabled', true);
     timer = 30;
     canvas.style.display = 'block';
@@ -94,6 +95,7 @@ run.addEventListener('click', ()=>{
     loop();
 })
 
+// FUNCTION CALLED AT THE END OF THE GAME
 function endOfGame(){
     playing = false
     timeDisp.innerHTML = '0';
@@ -102,6 +104,7 @@ function endOfGame(){
     run.style.display = 'none';
 }
 
+// MAIN LOOP OF THE GAME
 function loop(){
     if (timer === 0){
         endOfGame();
@@ -130,9 +133,7 @@ function loop(){
         }
 }
 
-
-
-
+// EVENT LISTENER THAT LISTENS TO KEYBOARD PRESSES
 document.addEventListener('keydown', (e)=>{
     if (e.key === 'ArrowLeft') {
         canon.x -= canon.dx;
